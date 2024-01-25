@@ -59,18 +59,41 @@ public class Parameters {
         return maxSecondColumnWidth;
     }
 
+   // Print the table
     private static void printTable(ArrayList<String> parameters, int firstColumnWidth, int secondColumnWidth) {
-        // Sort parameters alphabetically
-        Collections.sort(parameters);
+    // Sort parameters alphabetically
+    Collections.sort(parameters);
 
-        // Print the table
-        System.out.println("#########################################");
-        for (int i = 0; i < parameters.size(); i++) {
-            System.out.printf("# %" + firstColumnWidth + "d | %-" + secondColumnWidth + "s #\n", i + 1, parameters.get(i));
-            if (i < parameters.size() - 1) {
-                System.out.println("#----+----------------------------------#");
-            }
+    // Determine the length of the longest parameter for the outer border
+    int maxParameterWidth = parameters.stream().mapToInt(String::length).max().orElse(0);
+
+    // Print the outer border
+    System.out.println("#".repeat(maxParameterWidth + firstColumnWidth + 6)+ "#"); // 6 is for extra padding and vertical bars
+
+    // Print the table content
+    for (int i = 0; i < parameters.size(); i++) {
+        // Print the outer border of the row
+        System.out.print("#");
+
+        // Print the first column (aligned to the right)
+        System.out.printf(" %" + firstColumnWidth + "d |", i + 1);
+
+        
+        // Print the second column (aligned to the left)
+        System.out.printf(" %-" + secondColumnWidth + "s ", parameters.get(i));
+
+        // Print the outer border of the row
+        System.out.println("#");
+
+        // Print the inner border between rows (except for the last row)
+        if (i < parameters.size() - 1) {
+            System.out.println("#" + "-".repeat(firstColumnWidth + 2) + "+" + "-".repeat(secondColumnWidth + 2) + "#");
         }
-        System.out.println("#########################################");
+    }
+
+    // Print the bottom outer border
+    System.out.println("#".repeat(maxParameterWidth + firstColumnWidth + 6)+ "#");
     }
 }
+
+
