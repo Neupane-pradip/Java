@@ -20,7 +20,7 @@ public class Median {
 
         // Calculate and print the median
         double median = calculateMedian(numbers);
-        System.out.printf("Median: %.5f%n", median);
+        System.out.printf("Median: %s%n", median);
     }
 
     private static double[] readNumbers(Scanner scanner) {
