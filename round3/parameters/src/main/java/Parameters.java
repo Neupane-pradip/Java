@@ -35,16 +35,17 @@ public class Parameters {
     }
 
     private static int determineFirstColumnWidth(ArrayList<String> parameters) {
-        // Find the length of the widest value in the first column
-        int maxFirstColumnWidth = 0;
-        for (String parameter : parameters) {
-            int width = String.valueOf(parameters.size()).length();
-            if (width > maxFirstColumnWidth) {
-                maxFirstColumnWidth = width;
-            }
+    // Find the length of the widest value in the first column
+    int maxFirstColumnWidth = 0;
+    for (int i = 1; i <= parameters.size(); i++) {
+        int width = String.valueOf(i).length();
+        if (width > maxFirstColumnWidth) {
+            maxFirstColumnWidth = width;
         }
-        return maxFirstColumnWidth;
     }
+    return maxFirstColumnWidth;
+}
+
 
     private static int determineSecondColumnWidth(ArrayList<String> parameters) {
         // Find the length of the widest value in the second column
