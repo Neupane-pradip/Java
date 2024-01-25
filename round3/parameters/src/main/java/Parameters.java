@@ -65,7 +65,7 @@ public class Parameters {
         // Print the table
         System.out.println("#########################################");
         for (int i = 0; i < parameters.size(); i++) {
-            System.out.printf("# %-" + firstColumnWidth + "d | %-" + secondColumnWidth + "s #\n", i + 1, parameters.get(i));
+            System.out.printf("# %" + firstColumnWidth + "d | %-" + secondColumnWidth + "s #\n", i + 1, parameters.get(i));
             if (i < parameters.size() - 1) {
                 System.out.println("#----+----------------------------------#");
             }
