@@ -93,21 +93,7 @@ public class WordGame {
         private int missingChars;
 
         
-    public WordGameState() {
-        // Initialize default values
-        this.word = "";
-        this.mistakes = 0;
-        this.mistakeLimit = 0;
-        this.missingChars = 0;
-    }
-
-    // Parameterized constructor
-    public WordGameState(String word, int mistakeLimit) {
-        this.word = word;
-        this.mistakes = 0;
-        this.mistakeLimit = mistakeLimit;
-        this.missingChars = word.length();
-    }
+    
 
         public String getWord() {
             return word;
