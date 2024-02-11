@@ -115,10 +115,4 @@ public class WordGame {
             return missingChars;
         }
     }
-
-    public class GameStateException extends RuntimeException {
-        public GameStateException(String msg) {
-            super(msg);
-        }
-    }
 }
