@@ -92,7 +92,13 @@ public class WordGame {
         private int mistakeLimit;
         private int missingChars;
 
-        
+        // Constructor with parameters
+    public WordGameState(String word, int mistakeLimit) {
+        this.word = word;
+        this.mistakes = 0;
+        this.mistakeLimit = mistakeLimit;
+        this.missingChars = word.length();
+    }
 
         public String getWord() {
             return word;
