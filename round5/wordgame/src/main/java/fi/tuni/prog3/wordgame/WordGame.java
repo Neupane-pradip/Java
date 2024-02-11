@@ -24,7 +24,7 @@ public class WordGame {
         gameActive = false;
     }
 
-    public void initGame(int wordIndex, int mistakeLimit) {
+    public void initGame(int wordIndex, int mistakeLimit) throws GameStateException{
         if (wordIndex < 0 || wordIndex >= words.size()) {
             throw new IllegalArgumentException("Invalid word index");
         }
@@ -92,12 +92,7 @@ public class WordGame {
         private int mistakeLimit;
         private int missingChars;
 
-        public WordGameState(String word, int mistakeLimit) {
-            this.word = word;
-            this.mistakes = 0;
-            this.mistakeLimit = mistakeLimit;
-            this.missingChars = word.length();
-        }
+        
 
         public String getWord() {
             return word;
