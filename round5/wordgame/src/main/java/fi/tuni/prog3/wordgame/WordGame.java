@@ -11,7 +11,7 @@ public class WordGame {
     private WordGameState gameState;
     private boolean gameActive;
 
-    public WordGame(String wordFilename) {
+    public WordGame(String wordFilename)  {
         words = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(wordFilename))) {
             String line;
@@ -37,14 +37,14 @@ public class WordGame {
         return gameActive;
     }
 
-    public WordGameState getGameState() {
+    public WordGameState getGameState() throws GameStateException{
         if (!isGameActive()) {
             throw new GameStateException("There is currently no active word game!");
         }
         return gameState;
     }
 
-    public WordGameState guess(char c) {
+    public WordGameState guess(char c) throws GameStateException{
         if (!isGameActive()) {
             throw new GameStateException("There is currently no active word game!");
         }
@@ -70,7 +70,7 @@ public class WordGame {
         return gameState;
     }
 
-    public WordGameState guess(String word) {
+    public WordGameState guess(String word) throws GameStateException {
         if (!isGameActive()) {
             throw new GameStateException("There is currently no active word game!");
         }
