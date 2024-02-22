@@ -1,3 +1,4 @@
 # Never push bytecode to the repository.
 *.class
 /round2/mean/target/
+/round6/comparison/target/
