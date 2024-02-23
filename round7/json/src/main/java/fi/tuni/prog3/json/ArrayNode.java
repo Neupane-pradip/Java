@@ -52,4 +52,12 @@ public class ArrayNode extends Node implements Iterable<Node> {
     public Iterator<Node> iterator() {
         return nodeList.iterator();
     }
+
+    void printJson(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    Object get(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
