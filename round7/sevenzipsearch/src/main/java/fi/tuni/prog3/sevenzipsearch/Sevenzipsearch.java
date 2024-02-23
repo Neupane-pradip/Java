@@ -13,10 +13,10 @@ public class Sevenzipsearch {
 
     public static void main(String[] args) {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-            System.out.print("File: ");
+            System.out.print("File: \n");
             String fileName = reader.readLine();
 
-            System.out.print("Query: ");
+            System.out.print("Query: \n");
             String searchWord = reader.readLine();
 
             System.out.println();
