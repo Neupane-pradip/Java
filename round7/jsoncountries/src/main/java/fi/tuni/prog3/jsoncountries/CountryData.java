@@ -2,61 +2,132 @@ package fi.tuni.prog3.jsoncountries;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
 
 public class CountryData {
 
+    // Method to read data from multiple JSON files and create Country objects
     public static List<Country> readFromJsons(String areaFile,
                                               String populationFile,
-                                              String gdpFile) {
-        // Read JSON files into TreeMap
-        TreeMap<String, Double> areaData = readJsonFile(areaFile);
-        TreeMap<String, Long> populationData = readJsonFile(populationFile);
-        TreeMap<String, Double> gdpData = readJsonFile(gdpFile);
+                                              String gdpFile){
+        TreeMap<String, String> areaData;
+        TreeMap<String, String> populationData;
+        TreeMap<String, String> gdpData;
 
-        // Combine data from all files
+        try {
+            // Read data from JSON files
+            areaData = readJsonFile(areaFile);
+            populationData = readJsonFile(populationFile);
+            gdpData = readJsonFile(gdpFile);
+        }
+        catch (IOException e){
+            System.out.println("Error reading files");
+            return null;
+        }
+
+        // Create Country objects from the data
         List<Country> countries = new ArrayList<>();
-        for (Map.Entry<String, Double> entry : areaData.entrySet()) {
-            String countryName = entry.getKey();
-            if (populationData.containsKey(countryName) && gdpData.containsKey(countryName)) {
-                double area = entry.getValue();
-                long population = populationData.get(countryName);
-                double gdp = gdpData.get(countryName);
+        for(String countryName : areaData.keySet()){
+            if (populationData.containsKey(countryName) &&
+                    gdpData.containsKey(countryName)){
+                double area = Double.parseDouble(areaData.get(countryName));
+                long population = Long.parseLong(populationData.get(countryName));
+                double gdp = Double.parseDouble(gdpData.get(countryName));
                 countries.add(new Country(countryName, area, population, gdp));
             }
         }
         return countries;
     }
 
-    private static <T> TreeMap<String, T> readJsonFile(String filename) {
-        TreeMap<String, T> dataMap = new TreeMap<>();
-        try (FileReader fileReader = new FileReader(filename)) {
-            JsonObject jsonObject = JsonParser.parseReader(fileReader).getAsJsonObject();
-            for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
-                dataMap.put(entry.getKey(), (T) entry.getValue());
+    // Method to read data from a JSON file
+    private static TreeMap<String,String> readJsonFile(String filename) throws IOException{
+        TreeMap<String,String> countryData = new TreeMap<>();
+        Gson gson = new Gson();
+        FileReader fileReader = new FileReader(filename);
+        JsonReader reader = gson.newJsonReader(fileReader);
+
+        // Parse JSON structure
+        reader.beginObject();
+        while (reader.hasNext()){
+            String name = reader.nextName();
+            if (name.equals("Root") || name.equals("data")){
+                reader.beginObject();
             }
-        } catch (IOException e) {
-            System.out.println("Error reading file: " + filename);
+            else if (name.equals("record")){
+                reader.beginArray();
+                while (reader.hasNext()) {
+                    reader.beginObject();
+                    while(reader.hasNext()) {
+                        String field = reader.nextName();
+                        if (field.equals("field")) {
+                            reader.beginArray();
+                            String storeValue = "";
+                            String countryName = "";
+                            String value = "";
+
+                            while (reader.hasNext()) {
+                                reader.beginObject();
+                                while (reader.hasNext()) {
+                                    String attribute = reader.nextName();
+                                    if (attribute.equals("value")) {
+                                        storeValue = reader.nextString();
+                                    } else if (attribute.equals("attributes")) {
+                                        reader.beginObject();
+                                        while (reader.hasNext()) {
+                                            String attrName = reader.nextName();
+                                            if (attrName.equals("name")) {
+                                                String nextString = reader.nextString();
+                                                if (nextString.equals("Country or Area")) {
+                                                    countryName = storeValue;
+                                                } else if (nextString.equals("Value")) {
+                                                    value = storeValue;
+                                                }
+                                            } else if (attrName.equals("key")){
+                                                reader.skipValue();
+                                            }
+                                            else {
+                                                reader.skipValue();
+                                            }
+                                        }
+                                        reader.endObject();
+                                    } else {
+                                        reader.skipValue();
+                                    }
+                                }
+                                reader.endObject();
+                            }
+                            reader.endArray();
+                            countryData.put(countryName, value);
+                        } else {
+                            reader.skipValue();
+                        }
+                    }
+                    reader.endObject();
+                }
+                reader.endArray();
+            }
+            else {
+                reader.skipValue();
+            }
         }
-        return dataMap;
+        reader.endObject();
+        reader.endObject();
+        reader.endObject();
+        reader.close();
+
+        return countryData;
     }
 
-    public static void writeToJson(List<Country> countries, String countryFile) {
+    // Method to write list of Country objects to a JSON file
+    public static void writeToJson(List<Country> countries, String countryFile) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        try (FileWriter fileWriter = new FileWriter(countryFile)) {
-            gson.toJson(countries, fileWriter);
-        } catch (IOException e) {
-            System.out.println("Error writing to file: " + countryFile);
+        try(PrintStream output = new PrintStream(new FileOutputStream(countryFile))) {
+            output.print(gson.toJson(countries));
         }
     }
 }
