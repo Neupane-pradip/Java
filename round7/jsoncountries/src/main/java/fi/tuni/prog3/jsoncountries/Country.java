@@ -1,18 +1,21 @@
 package fi.tuni.prog3.jsoncountries;
 
-public class Country implements Comparable<Country> {
-    private String name;
-    private double area;
-    private long population;
-    private double gdp;
+public class Country {
 
-    public Country(String name, double area, long population, double gdp) {
+    private final String name;
+    private final double area;
+    private final long population;
+    private final double gdp;
+
+    // Constructor
+    public Country(String name, double area, long population, double gdp){
         this.name = name;
         this.area = area;
         this.population = population;
         this.gdp = gdp;
     }
 
+    // Getters
     public String getName() {
         return name;
     }
@@ -29,16 +32,13 @@ public class Country implements Comparable<Country> {
         return gdp;
     }
 
+    // toString method
     @Override
-    public String toString() {
-        return String.format(" %s\n" +
-                            " Area: %.1f\n" +  
-                            " Population: %d\n" +
-                            " GDP: %.1f", name, area, population, gdp);
-                }
-
-    @Override
-    public int compareTo(Country o) {
-        return this.name.compareTo(o.getName());
+    public String toString(){
+        return String.format("%s%n" +
+                        "  Area: %.1f km2%n" +
+                        "  Population: %d%n" +
+                        "  GDP: %.1f (2015 USD)%n",
+                name, area, population, gdp);
     }
 }
