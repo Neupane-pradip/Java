@@ -90,16 +90,18 @@ public class MovieAnalytics2 {
      * by genre name.
      */
     public void printAverageScoreByGenre() {
-        
-        // Group movies by genre and calculate average rating score
-        Map<String, Double> averageScores = movies.stream()
-                .collect(Collectors.groupingBy(Movie::getGenre, 
-                        Collectors.averagingDouble(Movie::getScore)));
-        
-         // Sort and print genres by average rating score
-        averageScores.entrySet().stream()
-                .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
-                .forEach(entry -> System.out.println(entry.getKey() + ": " +
-                        String.format("%.2f", entry.getValue())));
-    }
+    // Group movies by genre and calculate average rating score
+    Map<String, Double> averageScores = movies.stream()
+            .collect(Collectors.groupingBy(Movie::getGenre, Collectors.
+                    averagingDouble(Movie::getScore)));
+    
+    // Sort genres by average score in descending order and then by genre name 
+    //in ascending order. This ensures that genres with the same average score
+    //are ordered alphabetically
+    averageScores.entrySet().stream()
+            .sorted(Map.Entry.<String, Double>comparingByValue().reversed().
+            thenComparing(Map.Entry.comparingByKey())).forEach(entry -> System.
+            out.println(entry.getKey() + ": " + 
+            String.format("%.2f", entry.getValue())));
+}
 }
