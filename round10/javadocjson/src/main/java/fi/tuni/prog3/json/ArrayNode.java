@@ -1,68 +1,44 @@
-/**
- * This package provides classes for working with JSON data.
- * It includes classes to represent JSON nodes, such as arrays, objects, and values.
- */
-
-
 package fi.tuni.prog3.json;
 
-
-import java.util.Iterator;
 import java.util.ArrayList;
+import java.util.Iterator;
 
+/**
+ * A class for representing a JSON array.
+ */
 
-public class ArrayNode extends Node implements Iterable<Node>{
-
-    private final ArrayList<Node> nodeList;
-
+public class ArrayNode extends Node implements Iterable<Node> {
+    private ArrayList<Node> arraynode;
+    
     /**
      * Constructs an initially empty JSON array node.
      */
-    public ArrayNode(){
-        nodeList = new ArrayList<>();
+    public ArrayNode() {
+        arraynode = new ArrayList<>();
     }
-
+    
     /**
-     * Returns the count of JSON nodes stored in this JSON array.
-     * @return the count of JSON nodes in this JSON array.
+     * Returns the number of JSON nodes stored in this JSON array.
+     * @return the number of JSON nodes in this JSON array.
      */
     public int size(){
-        return nodeList.size();
+        return arraynode.size();
     }
-
+    
     /**
-     * Appends a new JSON node to the end of this JSON array.
-     * @param node - the new JSON node to be appended.
+     * Adds a new JSON node to the end of this JSON array.
+     * @param node the new JSON node to be added. 
      */
-    public void append(Node node){
-        nodeList.add(node);
+    public void add(Node node){
+        arraynode.add(node);
     }
-
-    private class JsonArrayIterator implements Iterator<Node>{
-
-        private int index;
-
-        public JsonArrayIterator(){
-            index=0;
-        }
-        
-        @Override
-        public boolean hasNext(){
-            return index<nodeList.size();
-        }
-
-        @Override 
-        public Node next(){
-            return nodeList.get(index++);
-        }
-    }
-
+    
     /**
      * Returns a Node iterator that iterates the JSON nodes stored in this JSON array.
      * @return a Node iterator that iterates the JSON nodes stored in this JSON array.
      */
     @Override
     public Iterator<Node> iterator(){
-        return new JsonArrayIterator();
+        return arraynode.iterator();
     }
 }
