@@ -10,9 +10,7 @@ package fi.tuni.prog3.json;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-/**
- * This class encapsulates a JSON array.
- */
+
 public final class ArrayNode extends Node implements Iterable<Node>{
 
     private final ArrayList<Node> nodeList;
