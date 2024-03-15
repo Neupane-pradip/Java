@@ -3,97 +3,66 @@
  * It includes classes to represent JSON nodes, such as arrays, objects, and values.
  */
 
+
 package fi.tuni.prog3.json;
 
-import java.util.ArrayList;
+
 import java.util.Iterator;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
- * Represents a JSON array node.
+ * This class encapsulates a JSON array.
  */
-public class ArrayNode extends Node implements Iterable<Node> {
-    private List<Node> nodeList;
+public final class ArrayNode extends Node implements Iterable<Node>{
+
+    private final ArrayList<Node> nodeList;
 
     /**
-     * Constructs an empty array node.
+     * Constructs an initially empty JSON array node.
      */
-    public ArrayNode() {
-        this.nodeList = new ArrayList<>();
+    public ArrayNode(){
+        nodeList = new ArrayList<>();
     }
 
     /**
-     * Checks if the node is a value.
-     *
-     * @return always false since it's an array.
+     * Returns the count of JSON nodes stored in this JSON array.
+     * @return the count of JSON nodes in this JSON array.
      */
-    @Override
-    public boolean isValue() {
-        return false;
-    }
-
-    /**
-     * Checks if the node is an array.
-     *
-     * @return always true since it's an array.
-     */
-    @Override
-    public boolean isArray() {
-        return true;
-    }
-
-    /**
-     * Checks if the node is an object.
-     *
-     * @return always false since it's an array.
-     */
-    @Override
-    public boolean isObject() {
-        return false;
-    }
-
-    /**
-     * Prints the JSON representation of the array node.
-     */
-    @Override
-    public void printJson() {
-        System.out.print("[");
-        Iterator<Node> iterator = nodeList.iterator();
-        while (iterator.hasNext()) {
-            Node node = iterator.next();
-            node.printJson();
-            if (iterator.hasNext()) {
-                System.out.print(", ");
-            }
-        }
-        System.out.print("]");
-    }
-
-    /**
-     * Adds a node to the array.
-     *
-     * @param node The node to be added.
-     */
-    public void add(Node node) {
-        nodeList.add(node);
-    }
-
-    /**
-     * Returns the size of the array.
-     *
-     * @return The size of the array.
-     */
-    public int size() {
+    public int count(){
         return nodeList.size();
     }
 
     /**
-     * Returns an iterator over the elements in the array.
-     *
-     * @return An iterator.
+     * Appends a new JSON node to the end of this JSON array.
+     * @param node - the new JSON node to be appended.
+     */
+    public void append(Node node){
+        nodeList.add(node);
+    }
+
+    private class JsonArrayIterator implements Iterator<Node>{
+
+        private int index;
+
+        public JsonArrayIterator(){
+            index=0;
+        }
+        public boolean hasNext(){
+            return index<nodeList.size();
+        }
+
+        @Override 
+        public Node next(){
+            return nodeList.get(index++);
+        }
+    }
+
+    /**
+     * Returns a Node iterator that iterates the JSON nodes stored in this JSON array.
+     * @return a Node iterator that iterates the JSON nodes stored in this JSON array.
      */
     @Override
-    public Iterator<Node> iterator() {
-        return nodeList.iterator();
+    public Iterator<Node> iterator(){
+        return new JsonArrayIterator();
     }
 }

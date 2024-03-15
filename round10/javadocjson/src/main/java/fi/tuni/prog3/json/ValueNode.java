@@ -1,156 +1,114 @@
-/**
- * This package provides classes for working with JSON data.
- * It includes classes to represent JSON nodes, such as arrays, objects, and values.
- */
+
 package fi.tuni.prog3.json;
 
 /**
- * Represents a JSON value node.
+ * This class encapsulates a JSON value. The encapsulated value can be a double, a boolean, a String, or null.
  */
-public class ValueNode extends Node {
-    private Object value;
+public final class ValueNode extends Node {
+
+    private final Object data;
 
     /**
-     * Constructs a null value node.
+     * Constructs a JSON value node that encapsulates the provided double value.
+     * @param data The double value to be encapsulated in the new JSON value node.
      */
-    public ValueNode() {
-        this.value = null;
+    public ValueNode(double data) {
+        this.data = data;
     }
 
     /**
-     * Constructs a value node with a double value.
-     *
-     * @param value The double value.
+     * Constructs a JSON value node that encapsulates the provided boolean value.
+     * @param data The boolean value to be encapsulated in the new JSON value node.
      */
-    public ValueNode(double value) {
-        this.value = value;
+    public ValueNode(boolean data) {
+        this.data = data;
     }
 
     /**
-     * Constructs a value node with a boolean value.
-     *
-     * @param value The boolean value.
+     * Constructs a JSON value node that encapsulates the provided string or null.
+     * @param data The string or null to be encapsulated in the new JSON value node.
      */
-    public ValueNode(boolean value) {
-        this.value = value;
+    public ValueNode(String data) {
+        this.data = data;
     }
 
     /**
-     * Constructs a value node with a string value.
-     *
-     * @param value The string value.
+     * Verifies if this value node encapsulates a number (double).
+     * @return true if this node encapsulates a double value, otherwise false.
      */
-    public ValueNode(String value) {
-        this.value = value;
+    public boolean isNumeric() {
+        return data instanceof Number;
     }
 
     /**
-     * Checks if the node is a value.
-     *
-     * @return always true since it's a value.
+     * Verifies if this value node encapsulates a boolean value.
+     * @return true if this node encapsulates a boolean value, otherwise false.
      */
-    @Override
-    public boolean isValue() {
-        return true;
+    public boolean isBool() {
+        return data instanceof Boolean;
     }
 
     /**
-     * Checks if the node is an array.
-     *
-     * @return always false since it's a value.
+     * Verifies if this value node encapsulates a string.
+     * @return true if this node encapsulates a string, otherwise false.
      */
-    @Override
-    public boolean isArray() {
-        return false;
+    public boolean isText() {
+        return data instanceof String;
     }
 
     /**
-     * Checks if the node is an object.
-     *
-     * @return always false since it's a value.
+     * Verifies if this value node encapsulates null.
+     * @return true if this node encapsulates null, otherwise false.
      */
-    @Override
-    public boolean isObject() {
-        return false;
+    public boolean isNone() {
+        return data == null;
     }
 
     /**
-     * Prints the JSON representation of the value node.
+     * Retrieves the encapsulated value as a number (double).
+     * @return the encapsulated number as a double value.
+     * @throws IllegalStateException if the encapsulated value is not a number.
      */
-    @Override
-    public void printJson() {
-        System.out.print(value);
+    public double getNumeric() {
+        if (!isNumeric()) {
+            throw new IllegalStateException();
+        }
+        return (double) data;
     }
 
     /**
-     * Checks if the value is a number.
-     *
-     * @return true if the value is a number, false otherwise.
+     * Retrieves the encapsulated value as a boolean value.
+     * @return the encapsulated boolean value.
+     * @throws IllegalStateException if the encapsulated value is not a boolean value.
      */
-    public boolean isNumber() {
-        return value instanceof Double;
+    public boolean getBool() {
+        if (!isBool()) {
+            throw new IllegalStateException();
+        }
+        return (boolean) data;
     }
 
     /**
-     * Checks if the value is a boolean.
-     *
-     * @return true if the value is a boolean, false otherwise.
+     * Retrieves the encapsulated value as a string.
+     * @return the encapsulated string.
+     * @throws IllegalStateException if the encapsulated value is not a string.
      */
-    public boolean isBoolean() {
-        return value instanceof Boolean;
+    public String getText() {
+        if (!isText()) {
+            throw new IllegalStateException();
+        }
+        return (String) data;
     }
 
     /**
-     * Checks if the value is a string.
-     *
-     * @return true if the value is a string, false otherwise.
+     * Retrieves the encapsulated value as null.
+     * @return null.
+     * @throws IllegalStateException if the encapsulated value is not null.
      */
-    public boolean isString() {
-        return value instanceof String;
-    }
-
-    /**
-     * Checks if the value is null.
-     *
-     * @return true if the value is null, false otherwise.
-     */
-    public boolean isNull() {
-        return value == null;
-    }
-
-    /**
-     * Gets the numeric value of the node.
-     *
-     * @return The numeric value.
-     */
-    public double getNumber() {
-        return (double) value;
-    }
-
-    /**
-     * Gets the boolean value of the node.
-     *
-     * @return The boolean value.
-     */
-    public boolean getBoolean() {
-        return (boolean) value;
-    }
-
-    /**
-     * Gets the string value of the node.
-     *
-     * @return The string value.
-     */
-    public String getString() {
-        return (String) value;
-    }
-
-    /**
-     * Gets the null value of the node.
-     *
-     * @return The null value.
-     */
-    public Object getNull() {
-        return value;
+    public Object getNone() {
+        if (!isNone()) {
+            throw new IllegalStateException();
+        }
+        return null;
     }
 }

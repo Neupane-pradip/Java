@@ -1,42 +1,40 @@
 /**
- * This package provides classes for working with JSON data.
- * It includes classes to represent JSON nodes, such as arrays, objects, and values.
+ * An abstract base class for various types of JSON nodes.
  */
 package fi.tuni.prog3.json;
 
 /**
- * The abstract class representing a JSON node.
+ * An abstract base class for various types of JSON nodes.
  */
 public abstract class Node {
-    /**
-     * Checks if the node is an object.
-     *
-     * @return true if the node is an object, false otherwise.
-     */
-    public boolean isObject() {
-        return this instanceof ObjectNode;
-    }
 
-    /**
-     * Checks if the node is an array.
-     *
-     * @return true if the node is an array, false otherwise.
-     */
-    public boolean isArray() {
-        return this instanceof ArrayNode;
-    }
+  /**
+   * The sole constructor. It will be called, typically implicitly, by constructors of subclasses.
+   */
+  protected Node(){
+  }
 
-    /**
-     * Checks if the node is a value.
-     *
-     * @return true if the node is a value, false otherwise.
-     */
-    public boolean isValue() {
-        return this instanceof ValueNode;
-    }
+  /**
+   * Verifies if this node is a representation of a JSON object.
+   * @return true if this node is a representation of a JSON object, otherwise false.
+   */
+  public boolean isObjectType() {
+    return this instanceof ObjectNode;
+  }
 
-    /**
-     * Prints the JSON representation of the node.
-     */
-    public abstract void printJson();
+  /**
+   * Verifies if this node is a representation of a JSON array.
+   * @return true if this node is a representation of a JSON array, otherwise false.
+   */
+  public boolean isArrayType() {
+    return this instanceof ArrayNode;
+  }
+
+  /**
+   * Verifies if this node is a representation of a JSON value.
+   * @return true if this node is a representation of a JSON value, otherwise false.
+   */
+  public boolean isValueType() {
+    return this instanceof ValueNode;
+  }
 }
