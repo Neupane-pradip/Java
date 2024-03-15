@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 
-public final class ArrayNode extends Node implements Iterable<Node>{
+public class ArrayNode extends Node implements Iterable<Node>{
 
     private final ArrayList<Node> nodeList;
 
