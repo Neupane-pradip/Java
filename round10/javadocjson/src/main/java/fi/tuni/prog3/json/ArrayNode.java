@@ -1,44 +1,74 @@
+
 package fi.tuni.prog3.json;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * A class for representing a JSON array.
  */
-
 public class ArrayNode extends Node implements Iterable<Node> {
-    private ArrayList<Node> arraynode;
-    
+    List<Node> allList;
+
     /**
      * Constructs an initially empty JSON array node.
      */
     public ArrayNode() {
-        arraynode = new ArrayList<>();
+        this.allList = new ArrayList<>();
     }
-    
+
     /**
      * Returns the number of JSON nodes stored in this JSON array.
+     *
      * @return the number of JSON nodes in this JSON array.
      */
-    public int size(){
-        return arraynode.size();
+    public int size() {
+        return allList.size();
     }
-    
+
     /**
      * Adds a new JSON node to the end of this JSON array.
-     * @param node the new JSON node to be added. 
+     *
+     * @param node the new JSON node to be added.
      */
-    public void add(Node node){
-        arraynode.add(node);
+    public void add(Node node) {
+        allList.add(node);
     }
-    
+
     /**
-     * Returns a Node iterator that iterates the JSON nodes stored in this JSON array.
-     * @return a Node iterator that iterates the JSON nodes stored in this JSON array.
+     * Returns a Node iterator that iterates the JSON nodes stored in this JSON
+     * array.
+     *
+     * @return a Node iterator that iterates the JSON nodes stored in this JSON
+     *         array.
      */
-    @Override
-    public Iterator<Node> iterator(){
-        return arraynode.iterator();
+    public Iterator<Node> iterator() {
+        return new CustomIterator<Node>(allList);
+    }
+
+    private class CustomIterator<E> implements Iterator<E> {
+        int internalCount = 0;
+        List<E> internalList;
+
+        private CustomIterator(List<E> internalList) {
+            this.internalList = internalList;
+        }
+
+        @Override
+        public boolean hasNext() {
+            if (internalList.size() >= internalCount + 1) {
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public E next() {
+            E val = internalList.get(internalCount);
+            internalCount++;
+            return val;
+        }
+
     }
 }
