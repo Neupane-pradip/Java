@@ -1,3 +1,7 @@
+/**
+ * This package provides classes for working with JSON data.
+ * It includes classes to represent JSON nodes, such as arrays, objects, and values.
+ */
 package fi.tuni.prog3.json;
 
 /**
