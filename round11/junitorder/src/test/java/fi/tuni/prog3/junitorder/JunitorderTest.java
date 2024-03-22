@@ -133,4 +133,58 @@ public class JunitorderTest {
         double expResult = 2.5;
         assertEquals(expResult, instance.getTotalPrice(), 0);
     }
+    @Test
+    public void testIsEmpty() {
+        System.out.println("testIsEmpty");
+
+        int juiceCount = 1;
+        Order instance = new Order();
+        Item item = new Item("Juice", 1);
+
+        int mangoCount = 1;
+        Item item2 = new Item("Mango", 1.5);
+
+        instance.addItems(item, juiceCount);
+        instance.addItems(item2, mangoCount);
+
+        assertFalse(instance.isEmpty());
+    }
+
+    @Test
+    public void testRemoveItems() {
+        System.out.println("testRemoveItems");
+
+        int juiceCount = 1;
+        Order instance = new Order();
+        Item item = new Item("Juice", 1);
+
+        instance.addItems(item, juiceCount);
+
+        instance.removeItems("Juice", juiceCount);
+
+        assertTrue(instance.isEmpty());
+    }
+
+    @Test
+    public void testItemIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Item(null, -3);
+        });
+    }
+
+    @Test
+    public void testEntryIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Entry(new Item("fsd", 1), -3);
+        });
+    }
+
+    @Test
+    public void testAddItemsIllegalArgumentException() {
+        Order instance = new Order();
+        Item item = new Item("Juice", 1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            instance.addItems(item, -1);
+        });
+    }
 }
