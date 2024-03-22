@@ -187,4 +187,39 @@ public class JunitorderTest {
             instance.addItems(item, -1);
         });
     }
+     @Test
+    public void testRemoveItemsIllegalArgumentException() {
+        Order instance = new Order();
+        Item item = new Item("Juice", 1);
+        instance.addItems(item, 1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            instance.removeItems("Juice", 4);
+        });
+    }
+
+    @Test
+    public void testAddItemsNoSuchElementException() {
+        Order instance = new Order();
+        assertThrows(NoSuchElementException.class, () -> {
+            instance.addItems("daffd", 1);
+        });
+    }
+    @Test
+    public void testRemoveItemsNoSuchElementException() {
+        Order instance = new Order();
+        assertThrows(NoSuchElementException.class, () -> {
+            instance.removeItems("fadsafd", 1);
+        });
+    }
+
+    @Test
+    public void testAddItemsIllegalStateException() {
+        Order instance = new Order();
+        Item item = new Item("Juice", 0.8);
+        instance.addItems(item, 1);
+        Item item2 = new Item("Juice", 1.2);
+        assertThrows(IllegalStateException.class, () -> {
+            instance.addItems(item2, 1);
+        });
+    }
 }
