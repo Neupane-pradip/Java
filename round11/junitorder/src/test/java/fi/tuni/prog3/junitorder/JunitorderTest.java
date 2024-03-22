@@ -97,3 +97,40 @@ public class JunitorderTest {
         int expResult = 2;
         assertEquals(expResult, instance.getEntryCount());
     }
+     @Test
+    public void testGetItemCount() {
+        System.out.println("testGetItemCount");
+
+        int juiceCount = 1;
+        Order instance = new Order();
+        Item item = new Item("Juice", 0.8);
+
+        int mangoCount = 2;
+        Item item2 = new Item("Mango", 1.5);
+
+        instance.addItems(item, juiceCount);
+        instance.addItems("Juice", 2);
+        instance.addItems(item2, mangoCount);
+
+        int expResult = 5;
+        assertEquals(expResult, instance.getItemCount());
+    }
+
+    @Test
+    public void testGetTotalPrice() {
+        System.out.println("testGetTotalPrice");
+
+        int juiceCount = 1;
+        Order instance = new Order();
+        Item item = new Item("Juice", 1);
+
+        int mangoCount = 1;
+        Item item2 = new Item("Mango", 1.5);
+
+        instance.addItems(item, juiceCount);
+        instance.addItems(item2, mangoCount);
+
+        double expResult = 2.5;
+        assertEquals(expResult, instance.getTotalPrice(), 0);
+    }
+}
