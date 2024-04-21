@@ -67,7 +67,7 @@ public class Wordle extends Application {
     }
 
     private void setBackgroundAndBorder() {
-        BackgroundFill whiteBackgroundFill = new BackgroundFill(Color.LIGHTSKYBLUE, null, null);
+        BackgroundFill whiteBackgroundFill = new BackgroundFill(Color.WHITE, null, null);
         Background whiteBackground = new Background(whiteBackgroundFill);
         Border border = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
                 CornerRadii.EMPTY, new BorderWidths(2)));
@@ -87,7 +87,7 @@ public class Wordle extends Application {
     }
 
     private void setLabelProperties(Label label) {
-        label.setBackground(new Background(new BackgroundFill(Color.LIGHTSKYBLUE, null, null)));
+        label.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
         label.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
                 CornerRadii.EMPTY, new BorderWidths(2))));
         label.setPrefSize(100, 100);
