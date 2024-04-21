@@ -95,16 +95,16 @@ public class Wordle extends Application {
         label.setAlignment(Pos.CENTER);
     }
 
-    private void createNewGameButton() {
-        newGameButton = new Button();
-        newGameButton.setText("Start New Game");
-        newGameButton.setPrefSize(120, 40);
-        newGameButton.setId("newGameBtn");
-        newGameButton.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
-                CornerRadii.EMPTY, new BorderWidths(2))));
-        grid.add(newGameButton, 0, 0);
-        newGameButton.setOnAction((event) -> initializeNewGame((Stage) newGameButton.getScene().getWindow()));
-    }
+  private void createNewGameButton() {
+    newGameButton = new Button();
+    newGameButton.setText("Start new game"); 
+    newGameButton.setPrefSize(120, 40);
+    newGameButton.setId("newGameBtn");
+    newGameButton.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
+            CornerRadii.EMPTY, new BorderWidths(2))));
+    grid.add(newGameButton, 0, 0);
+    newGameButton.setOnAction((event) -> initializeNewGame((Stage) newGameButton.getScene().getWindow()));
+}
 
     private void createInfoLabel() {
         infoLabel = new Label();
@@ -130,7 +130,7 @@ public class Wordle extends Application {
         if (gameActive) {
             if (event.getCode() == KeyCode.ENTER) {
                 if (lastColumn != targetWord.length()) {
-                    infoLabel.setText("Enter a complete word before pressing Enter!");
+                    infoLabel.setText("Give a complete word before pressing Enter!");
                 } else {
                     updateGuessedWord();
                     changeColor();
