@@ -1,22 +1,58 @@
-# Ohjelmointi 3: harjoitusten tietovarasto
+# Java Programming Exercises
 
-Tämä on henkilökohtainen tietovarastosi **harjoitusten** tekemistä varten. Projektille julkaistaan myöhemmin erillinen tietovarasto.
+My Programming 3 coursework repository at Tampere University, organized into independent exercise projects.
 
-Harjoituksen tehtävänannossa kerrotaan, jos tehtävään liittyy opettajien tuottamaa valmista koodia,
-joka julkaistaan omassa etätietovarastossaan osoitteessa: https://course-gitlab.tuni.fi/compcs140-spring2024/student_template_project.git.
-Saat valmiin koodin helpommin käyttöösi liittämällä tämän etätietovaraston paikalliseen tietovarastoosi remoteksi.
+The repository contains course material, test fixtures, and exercise implementations. It is a collection of learning tasks rather than one deployable application.
 
-Valmiin materiaalin etävarastoon ei pidä, eikä voi, puskea uutta tietoa opiskelijan toimesta.
-Tarvitset Gitin push-komentoa vain, kun päivität oman etävarastosi sisältöä.
+## Repository guide
 
-# Programming 3: exercise repository
+| Folder | Topics and examples |
+|---|---|
+| `round2/`–`round3/` | Mean, median, and command-line parameters |
+| `round4/`–`round5/` | Student-register and Sudoku fixtures, date/time classes, and a word game |
+| `round6/` | Comparison and shape interfaces |
+| `round7/` | JSON nodes, country data, and archive searching |
+| `round8/` | Stream-based movie analytics |
+| `round10/` | Git exercise and generated JSON API documentation |
+| `round11/` | JUnit exercises |
+| `round12/` | JavaFX calculator and Wordle projects |
 
-This is your personal repository for the **exercises**. Another repository will be provided for the project work.
+Some directories contain only fixtures or partial work. A folder's presence does not mean its exercise is complete.
 
-You will be notified, if you need to work with code templates given by the course staff.
-The readily available code is published at https://course-gitlab.tuni.fi/compcs140-spring2024/student_template_project.git.
+## Requirements
 
-Add the template repository as a new remote in your personal repository.
+- JDK 17 for the supplied Maven project settings.
+- Apache Maven for directories containing `pom.xml`.
+- A desktop environment for JavaFX applications.
 
-Please, note that you neither need nor can push code to the template repository. 
-To work with given code, you only need to pull the templates from the template repository.
+Dependencies and plugin settings vary between exercises. Read the selected project's `pom.xml` before running it.
+
+## Build one exercise
+
+Run Maven inside the exercise directory, not the repository root:
+
+```sh
+git clone https://github.com/Neupane-pradip/Java.git
+cd Java/round2/mean
+mvn compile
+```
+
+To inspect or run tests for another exercise, change to its directory first. For example:
+
+```sh
+cd ../../round11/junitattainment
+mvn test
+```
+
+Test discovery depends on each project's Maven configuration. A successful Maven invocation should be checked for the number of tests actually run.
+
+## Working with the code
+
+- Java sources normally live under `src/main/java/`.
+- Maven-based test sources live under `src/test/java/` where provided.
+- Input and expected-output files belong to their individual exercises.
+- Run file-based programs from the directory expected by that exercise.
+
+## Course attribution
+
+This repository originated from Tampere University's Programming 3 exercise repository. Supplied templates and tests remain attributable to the course authors. The separate [Weather App](https://github.com/Neupane-pradip/Weather-app) repository contains the group course project.
